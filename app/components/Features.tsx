@@ -1,81 +1,126 @@
-import { motion } from 'framer-motion';
-import { PenTool, Sliders, ShieldCheck, Zap, MessageSquare, Layers } from 'lucide-react';
+"use client";
+
+import { motion } from "framer-motion";
+import {
+  PenTool,
+  Sliders,
+  ShieldCheck,
+  Zap,
+  MessageSquare,
+  Layers,
+} from "lucide-react";
+import Card from "./Card";
 
 const features = [
   {
-    icon: <Sliders className="w-6 h-6 text-blue-400" />,
+    icon: <Sliders className="h-6 w-6 text-blue-400" />,
     title: "Tone Control",
-    description: "Fine-tune the output voice—from academic research and professional drafting to conversational."
+    description:
+      "Fine-tune the output voice—from academic research and professional drafting to conversational.",
   },
   {
-    icon: <Layers className="w-6 h-6 text-indigo-400" />,
+    icon: <Layers className="h-6 w-6 text-indigo-400" />,
     title: "Rewrite Strength",
-    description: "Adjust how radically the text transforms while preserving the original semantic intent."
+    description:
+      "Adjust how radically the text transforms while preserving the original semantic intent.",
   },
   {
-    icon: <MessageSquare className="w-6 h-6 text-sky-400" />,
+    icon: <MessageSquare className="h-6 w-6 text-sky-400" />,
     title: "Natural Sentence Flow",
-    description: "Eliminates rigid structures and injects organic rhythm, burstiness, and phrasing."
+    description:
+      "Eliminates rigid structures and injects organic rhythm, burstiness, and phrasing.",
   },
   {
-    icon: <ShieldCheck className="w-6 h-6 text-teal-400" />,
+    icon: <ShieldCheck className="h-6 w-6 text-teal-400" />,
     title: "AI Detection Reduction",
-    description: "Lowers synthetic probability scores by introducing natural linguistic variations."
+    description:
+      "Lowers synthetic probability scores by introducing natural linguistic variations.",
   },
   {
-    icon: <PenTool className="w-6 h-6 text-cyan-400" />,
+    icon: <PenTool className="h-6 w-6 text-cyan-400" />,
     title: "Context Preservation",
-    description: "Maintains factual accuracy and core arguments through advanced semantic mapping."
+    description:
+      "Maintains factual accuracy and core arguments through advanced semantic mapping.",
   },
   {
-    icon: <Zap className="w-6 h-6 text-blue-500" />,
+    icon: <Zap className="h-6 w-6 text-blue-500" />,
     title: "Real-time Processing",
-    description: "Watch the text evolve instantly via an optimized, low-latency rewriting pipeline."
-  }
+    description:
+      "Watch the text evolve instantly via an optimized, low-latency rewriting pipeline.",
+  },
 ];
 
 export function Features() {
   return (
-    <section id="features" className="py-32 bg-[#020617] relative z-10">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-4xl md:text-5xl font-['Playfair_Display'] text-white mb-6">
-            Engineered for <span className="italic text-cyan-400">authenticity</span>
+    <section
+      id="features"
+      className="relative z-10 bg-[#020617] py-32"
+    >
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto mb-20 max-w-3xl text-center">
+          <h2 className="mb-6 font-['Playfair_Display'] text-4xl text-white md:text-5xl">
+            Engineered for{" "}
+            <span className="italic text-cyan-400">
+              authenticity
+            </span>
           </h2>
-          <p className="text-lg text-slate-400 font-light">
-            Our models analyze semantics, adjust phrasing rhythm, and synthesize natural text structures while preserving core intent.
+
+          <p className="text-lg font-light text-slate-400">
+            Our models analyze semantics, adjust phrasing rhythm,
+            and synthesize natural text structures while preserving
+            core intent.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, idx) => (
             <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -10, scale: 1.02 }}
-              viewport={{ once: true }}
-              transition={{ 
-                opacity: { duration: 0.6, delay: idx * 0.1 },
-                y: { duration: 0.6, delay: idx * 0.1, ease: "easeOut" },
-                scale: { duration: 0.2 },
-                hover: { type: "spring", stiffness: 300 }
+              key={feature.title}
+              initial={false}
+              animate={{
+                opacity: 1,
+                y: 0,
               }}
-              className="bg-white/[0.02] border border-white/5 p-8 rounded-3xl hover:bg-white/[0.04] hover:border-white/20 transition-all group relative overflow-hidden shadow-lg hover:shadow-[0_20px_40px_-15px_rgba(37,99,235,0.3)] backdrop-blur-sm"
-              style={{ transformStyle: 'preserve-3d' }}
+              transition={{
+                duration: 0.6,
+                delay: idx * 0.1,
+                ease: "easeOut",
+              }}
+              whileHover={{
+                y: -10,
+                scale: 1.02,
+              }}
+              style={{
+                transformStyle: "preserve-3d",
+              }}
             >
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-blue-500/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl" />
-              <div className="absolute -inset-px bg-gradient-to-b from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none" />
-              
-              <div className="relative z-10" style={{ transform: 'translateZ(30px)' }}>
-                <div className="w-14 h-14 bg-gradient-to-br from-[#0A102A] to-blue-900/20 rounded-2xl flex items-center justify-center mb-6 border border-white/10 shadow-[inset_0_2px_10px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] group-hover:scale-110 transition-all duration-300">
-                  {feature.icon}
+              <Card
+                variant="feature"
+                className="group relative h-full overflow-hidden p-8 hover:border-white/20 hover:bg-white/[0.04]"
+              >
+                <div className="absolute right-0 top-0 h-64 w-64 rounded-bl-full bg-gradient-to-bl from-blue-500/20 to-transparent opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100" />
+
+                <div className="pointer-events-none absolute -inset-px rounded-3xl bg-gradient-to-b from-white/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                <div
+                  className="relative z-10"
+                  style={{
+                    transform: "translateZ(30px)",
+                  }}
+                >
+                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-[#0A102A] to-blue-900/20 shadow-[inset_0_2px_10px_rgba(255,255,255,0.1)] transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+                    {feature.icon}
+                  </div>
+
+                  <h3 className="mb-3 text-xl font-semibold tracking-wide text-white">
+                    {feature.title}
+                  </h3>
+
+                  <p className="text-sm font-light leading-relaxed text-slate-400">
+                    {feature.description}
+                  </p>
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3 tracking-wide">{feature.title}</h3>
-                <p className="text-slate-400 leading-relaxed text-sm font-light">
-                  {feature.description}
-                </p>
-              </div>
+              </Card>
             </motion.div>
           ))}
         </div>

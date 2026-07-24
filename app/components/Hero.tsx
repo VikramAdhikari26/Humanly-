@@ -1,27 +1,23 @@
 "use client";
-import { AbstractWaves } from "./AbstractWaves";
+
 import { Sparkles, ArrowRight } from "lucide-react";
+import Button from "./Button";
 
 export function Hero() {
   return (
     <section className="relative min-h-[100svh] overflow-hidden bg-[#020617] pt-32">
-<AbstractWaves />
       {/* Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-
-        {/* Main gradient */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.18),transparent_35%),radial-gradient(circle_at_top_right,rgba(6,182,212,0.14),transparent_30%),linear-gradient(to_bottom,#020617,#03122b,#020617)]" />
 
-        {/* Glow blur */}
-        <div className="absolute top-24 right-20 w-[420px] h-[420px] rounded-full bg-cyan-500/10 blur-[120px] animate-pulse" />
+        <div className="absolute right-20 top-24 h-[420px] w-[420px] rounded-full bg-cyan-500/10 blur-[120px] animate-pulse" />
 
-        <div className="absolute bottom-10 left-0 w-[500px] h-[500px] rounded-full bg-blue-700/10 blur-[120px] animate-pulse" />
+        <div className="absolute bottom-10 left-0 h-[500px] w-[500px] rounded-full bg-blue-700/10 blur-[120px] animate-pulse" />
 
-        {/* Wave 1 */}
         <div className="absolute bottom-0 left-0 w-full opacity-40">
           <svg
             viewBox="0 0 1440 320"
-            className="w-full h-auto"
+            className="h-auto w-full"
             preserveAspectRatio="none"
           >
             <path
@@ -31,11 +27,10 @@ export function Hero() {
           </svg>
         </div>
 
-        {/* Wave 2 */}
         <div className="absolute bottom-0 left-0 w-full opacity-25">
           <svg
             viewBox="0 0 1440 320"
-            className="w-full h-auto"
+            className="h-auto w-full"
             preserveAspectRatio="none"
           >
             <path
@@ -47,122 +42,95 @@ export function Hero() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center min-h-[85svh]">
-
+      <div className="relative z-10 mx-auto grid min-h-[85svh] max-w-7xl items-center gap-16 px-6 lg:grid-cols-2 lg:px-10">
         {/* LEFT */}
         <div>
-
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-slate-300 mb-10">
-            <Sparkles className="w-4 h-4 text-cyan-400" />
-
+          <div className="mb-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2 text-slate-300 backdrop-blur-md">
+            <Sparkles className="h-4 w-4 text-cyan-400" />
             <span className="text-sm font-medium">
               AI Text Humanization Platform
             </span>
           </div>
 
-          {/* Heading */}
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-semibold leading-[0.95] tracking-tight text-white">
+          <h1 className="text-6xl font-semibold leading-[0.95] tracking-tight text-white md:text-7xl lg:text-8xl">
             Make AI
             <br />
             sound
             <br />
-
             <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-500 bg-clip-text text-transparent">
               like you.
             </span>
           </h1>
 
-          {/* Description */}
           <p className="mt-10 max-w-xl text-lg leading-9 text-slate-400">
             Humanly transforms robotic AI-generated writing into natural,
             authentic, and human-like communication with advanced contextual
             rewriting and tone adaptation.
           </p>
 
-          {/* Buttons */}
-          <div className="mt-12 flex flex-col sm:flex-row gap-5">
-
-            <a href="/dashboard">
-              <button className="group px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold shadow-[0_0_30px_rgba(59,130,246,0.35)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3">
-
+          <div className="mt-12 flex flex-col gap-5 sm:flex-row">
+            <Button href="/dashboard" variant="primary">
+              <>
                 Launch Humanly
+                <ArrowRight className="h-5 w-5" />
+              </>
+            </Button>
 
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </a>
-
-            <button className="px-8 py-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md text-slate-200 hover:bg-white/10 transition-all duration-300">
+            <Button variant="secondary">
               Explore Demo
-            </button>
+            </Button>
           </div>
         </div>
 
-        {/* RIGHT SIDE */}
+        {/* RIGHT */}
         <div className="relative flex justify-center lg:justify-end">
+          <div className="relative w-full max-w-[520px] overflow-hidden rounded-[36px] border border-white/10 bg-white/[0.06] p-8 shadow-[0_0_80px_rgba(59,130,246,0.18)] backdrop-blur-2xl">
+            <div className="absolute right-10 top-10 h-40 w-40 rounded-full bg-cyan-400/20 blur-[80px]" />
+            <div className="absolute bottom-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-500/20 blur-[100px]" />
 
-          {/* Main glass card */}
-          <div className="relative w-full max-w-[520px] rounded-[36px] border border-white/10 bg-white/[0.06] backdrop-blur-2xl shadow-[0_0_80px_rgba(59,130,246,0.18)] overflow-hidden p-8">
-
-            {/* Glow */}
-            <div className="absolute top-10 right-10 w-40 h-40 rounded-full bg-cyan-400/20 blur-[80px]" />
-
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full bg-blue-500/20 blur-[100px]" />
-
-            {/* Card content */}
             <div className="relative z-10">
-
-              {/* Icon */}
-              <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-[0_0_30px_rgba(56,189,248,0.35)] mb-8">
-
-                <Sparkles className="w-8 h-8 text-white" />
+              <div className="mb-8 flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-cyan-400 to-blue-600 shadow-[0_0_30px_rgba(56,189,248,0.35)]">
+                <Sparkles className="h-8 w-8 text-white" />
               </div>
 
-              {/* Fake lines */}
-              <div className="space-y-4 mb-10">
-                <div className="h-3 rounded-full bg-white/10 w-40" />
-                <div className="h-3 rounded-full bg-white/10 w-72" />
+              <div className="mb-10 space-y-4">
+                <div className="h-3 w-40 rounded-full bg-white/10" />
+                <div className="h-3 w-72 rounded-full bg-white/10" />
               </div>
 
-              {/* Processing card */}
-              <div className="rounded-3xl border border-white/10 bg-white/[0.05] backdrop-blur-xl p-6 shadow-[0_0_30px_rgba(15,23,42,0.35)]">
+              <div className="rounded-3xl border border-white/10 bg-white/[0.05] p-6 shadow-[0_0_30px_rgba(15,23,42,0.35)] backdrop-blur-xl">
+                <div className="mb-5 flex items-center gap-3">
+                  <div className="h-2 w-2 animate-pulse rounded-full bg-cyan-400" />
 
-                <div className="flex items-center gap-3 mb-5">
-
-                  <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-
-                  <span className="text-cyan-400 uppercase tracking-[0.18em] text-sm font-semibold">
+                  <span className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-400">
                     Analyzing
                   </span>
                 </div>
 
-                <p className="text-slate-400 italic leading-8 text-lg">
+                <p className="text-lg italic leading-8 text-slate-400">
                   “It is our paramount objective to ensure synergistic methodologies...”
                 </p>
 
-                <div className="w-full h-px bg-white/10 my-6" />
+                <div className="my-6 h-px w-full bg-white/10" />
 
-                <p className="text-white text-xl font-medium leading-8">
+                <p className="text-xl font-medium leading-8 text-white">
                   “We need to work together effectively...”
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Floating small card */}
-          <div className="hidden md:block absolute -bottom-6 -left-10 rounded-2xl border border-white/10 bg-[#081225]/80 backdrop-blur-xl px-6 py-5 shadow-[0_0_40px_rgba(59,130,246,0.2)]">
-
-            <p className="text-sm text-slate-400 mb-3">
+          <div className="absolute -bottom-6 -left-10 hidden rounded-2xl border border-white/10 bg-[#081225]/80 px-6 py-5 shadow-[0_0_40px_rgba(59,130,246,0.2)] backdrop-blur-xl md:block">
+            <p className="mb-3 text-sm text-slate-400">
               Authenticity Index
             </p>
 
-            <div className="w-48 h-2 rounded-full bg-white/10 overflow-hidden">
-
-              <div className="w-[82%] h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full" />
+            <div className="h-2 w-48 overflow-hidden rounded-full bg-white/10">
+              <div className="h-full w-[82%] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500" />
             </div>
           </div>
         </div>
       </div>
     </section>
-  );
+);
 }
