@@ -28,7 +28,7 @@ Designed for seamless integration with **Ollama** for local, privacy-first AI in
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
+- Node.js 20.9+ (required by Next.js 16)
 - npm or yarn
 
 ### Installation
