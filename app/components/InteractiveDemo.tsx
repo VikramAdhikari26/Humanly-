@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+"use client";
+
 import { Settings2, Play, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { useState } from 'react';
 

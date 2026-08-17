@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 export default function DashboardPage() {
@@ -43,12 +44,12 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <a
+          <Link
             href="/"
             className="px-6 py-3 rounded-2xl border border-white/10 bg-white/[0.05] text-slate-200 hover:bg-white/10 transition-all"
           >
             Back to Home
-          </a>
+          </Link>
         </div>
 
         {/* Input */}
