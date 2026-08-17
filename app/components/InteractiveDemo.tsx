@@ -2,17 +2,25 @@
 
 import { Settings2, Play, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { useState } from 'react';
+import { countWords, humanize, type Tone } from '../lib/humanize';
+
+const SAMPLE = "We understand that navigating the complexities of digital transformation can be challenging. It is crucial to leverage synergistic methodologies to ensure optimal outcomes and maximize holistic paradigm shifts across the organization.";
+
+const DEMO_TONES: Tone[] = ['Professional', 'Natural', 'Casual', 'Creative'];
 
 export function InteractiveDemo() {
   const [isRewriting, setIsRewriting] = useState(false);
-  const [output, setOutput] = useState("We understand that navigating the complexities of digital transformation can be challenging. It is crucial to leverage synergistic methodologies...");
-  
+  const [input, setInput] = useState(SAMPLE);
+  const [tone, setTone] = useState<Tone>('Casual');
+  const [output, setOutput] = useState("Your humanized text will appear here...");
+
   const handleRewrite = () => {
     setIsRewriting(true);
+    const result = humanize(input, tone, 85);
     setTimeout(() => {
-      setOutput("Going digital is tough. But if you bring the right teams together and focus on what matters, you'll get there faster.");
+      setOutput(result || "Add some text to rewrite.");
       setIsRewriting(false);
-    }, 1500);
+    }, 1000);
   };
 
   return (
@@ -38,27 +46,29 @@ export function InteractiveDemo() {
               <div className="flex items-center justify-between mb-6">
                 <span className="text-sm font-medium text-slate-400 uppercase tracking-wider">Input (AI Generated)</span>
                 <div className="flex items-center gap-2 text-xs text-slate-500 bg-white/5 px-3 py-1 rounded-full">
-                  <span>32 words</span>
+                  <span>{countWords(input)} words</span>
                 </div>
               </div>
               <textarea 
                 className="w-full h-48 bg-transparent text-slate-300 resize-none outline-none text-lg leading-relaxed font-light"
-                defaultValue="We understand that navigating the complexities of digital transformation can be challenging. It is crucial to leverage synergistic methodologies to ensure optimal outcomes and maximize holistic paradigm shifts across the organization."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
               />
               
               <div className="mt-8 space-y-6">
                 <div>
                   <div className="flex justify-between text-sm mb-3 text-slate-400">
                     <span>Tone</span>
-                    <span className="text-cyan-400">Conversational</span>
+                    <span className="text-cyan-400">{tone}</span>
                   </div>
                   <div className="flex gap-2">
-                    {['Professional', 'Conversational', 'Witty', 'Academic'].map((tone) => (
+                    {DEMO_TONES.map((option) => (
                       <button 
-                        key={tone}
-                        className={`px-4 py-2 rounded-lg text-sm transition-colors ${tone === 'Conversational' ? 'bg-blue-600 text-white' : 'bg-white/5 text-slate-400 hover:bg-white/10'}`}
+                        key={option}
+                        onClick={() => setTone(option)}
+                        className={`px-4 py-2 rounded-lg text-sm transition-colors ${option === tone ? 'bg-blue-600 text-white' : 'bg-white/5 text-slate-400 hover:bg-white/10'}`}
                       >
-                        {tone}
+                        {option}
                       </button>
                     ))}
                   </div>
@@ -104,8 +114,8 @@ export function InteractiveDemo() {
                 </div>
               </div>
               
-              <div className="relative h-48">
-                <div className="relative z-10 text-white text-lg leading-relaxed font-light">
+              <div className="relative min-h-48">
+                <div className="relative z-10 whitespace-pre-wrap text-white text-lg leading-relaxed font-light">
                   {output}
                 </div>
               </div>

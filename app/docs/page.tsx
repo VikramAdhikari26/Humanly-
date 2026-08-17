@@ -12,7 +12,7 @@ export default function DocsPage() {
 
         <p className="text-slate-400 text-lg max-w-2xl">
           Humanly API references, platform usage guides,
-          dashboard workflows, and implementation documentationcd
+          dashboard workflows, and implementation documentation
           will appear here.
         </p>
       </div>

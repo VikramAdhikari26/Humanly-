@@ -2,10 +2,41 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { countWords, humanize, TONES, type Tone } from "../lib/humanize";
 
 export default function DashboardPage() {
 
   const [strength, setStrength] = useState(82);
+  const [input, setInput] = useState("");
+  const [tone, setTone] = useState<Tone>("Natural");
+  const [output, setOutput] = useState("");
+  const [isHumanizing, setIsHumanizing] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleHumanize = () => {
+    if (!input.trim() || isHumanizing) return;
+
+    setIsHumanizing(true);
+    setCopied(false);
+
+    const result = humanize(input, tone, strength);
+    setTimeout(() => {
+      setOutput(result);
+      setIsHumanizing(false);
+    }, 600);
+  };
+
+  const handleCopy = async () => {
+    if (!output) return;
+
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
 
   return (
     <main className="min-h-screen bg-[#020617] text-white flex items-center justify-center px-6 py-20">
@@ -60,9 +91,15 @@ export default function DashboardPage() {
           </label>
 
           <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
             placeholder="Paste AI-generated content here..."
             className="w-full h-56 rounded-3xl bg-[#0b1220] border border-white/10 p-6 text-slate-200 outline-none resize-none focus:border-cyan-500 transition-all"
           />
+
+          <p className="mt-3 text-xs text-slate-500">
+            {countWords(input)} words
+          </p>
         </div>
 
         {/* Controls */}
@@ -75,12 +112,16 @@ export default function DashboardPage() {
               Tone Style
             </p>
 
-            <select className="w-full bg-[#0b1220] border border-white/10 rounded-2xl px-5 py-4 text-slate-200 outline-none">
-
-              <option>Natural</option>
-              <option>Professional</option>
-              <option>Casual</option>
-              <option>Creative</option>
+            <select
+              value={tone}
+              onChange={(e) => setTone(e.target.value as Tone)}
+              className="w-full bg-[#0b1220] border border-white/10 rounded-2xl px-5 py-4 text-slate-200 outline-none"
+            >
+              {TONES.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -118,20 +159,31 @@ export default function DashboardPage() {
               Humanized Output
             </label>
 
-            <button className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors">
-              Copy
+            <button
+              onClick={handleCopy}
+              disabled={!output}
+              className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors disabled:text-slate-600 disabled:cursor-not-allowed"
+            >
+              {copied ? "Copied" : "Copy"}
             </button>
           </div>
 
-          <div className="min-h-[220px] rounded-3xl border border-white/10 bg-[#08111d] p-6 text-slate-300 leading-8">
-            Your humanized content will appear here...
+          <div className="min-h-[220px] whitespace-pre-wrap rounded-3xl border border-white/10 bg-[#08111d] p-6 text-slate-300 leading-8">
+            {output || (
+              <span className="text-slate-500">
+                Your humanized content will appear here...
+              </span>
+            )}
           </div>
         </div>
 
         {/* Action */}
-        <button className="w-full py-5 rounded-3xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold shadow-[0_0_40px_rgba(37,99,235,0.35)] hover:scale-[1.01] transition-all">
-
-          Humanize Text
+        <button
+          onClick={handleHumanize}
+          disabled={!input.trim() || isHumanizing}
+          className="w-full py-5 rounded-3xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold shadow-[0_0_40px_rgba(37,99,235,0.35)] hover:scale-[1.01] transition-all disabled:opacity-40 disabled:hover:scale-100 disabled:cursor-not-allowed"
+        >
+          {isHumanizing ? "Humanizing..." : "Humanize Text"}
         </button>
       </div>
     </main>
