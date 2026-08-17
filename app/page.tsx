@@ -4,6 +4,7 @@ import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import { HowItWorks } from "./components/HowItWorks";
 import { Features } from "./components/Features";
+import { InteractiveDemo } from "./components/InteractiveDemo";
 import { Footer } from "./components/Footer";
 
 export default function Home() {
@@ -22,6 +23,8 @@ export default function Home() {
       <section aria-label="Features">
         <Features />
       </section>
+
+      <InteractiveDemo />
 
       <Footer />
     </main>
