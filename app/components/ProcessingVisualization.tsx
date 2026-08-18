@@ -10,7 +10,7 @@ export function ProcessingVisualization() {
       
       <div className="max-w-7xl mx-auto px-6 relative z-10 w-full" style={{ transformStyle: 'preserve-3d' }}>
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-4xl md:text-5xl font-['Playfair_Display'] text-white mb-6">
+          <h2 className="text-4xl md:text-5xl font-display text-white mb-6">
             Under the Hood
           </h2>
           <p className="text-lg text-slate-400 font-light">

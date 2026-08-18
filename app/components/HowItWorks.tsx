@@ -43,7 +43,7 @@ export function HowItWorks() {
             PIPELINE ARCHITECTURE
           </h2>
 
-          <h3 className="font-['Playfair_Display'] text-4xl text-white md:text-5xl">
+          <h3 className="font-display text-4xl text-white md:text-5xl">
             Transformation Workflow
           </h3>
         </div>

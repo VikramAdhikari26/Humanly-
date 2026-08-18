@@ -30,7 +30,7 @@ export function ProjectVision() {
           >
             <div className="mx-auto mb-12 h-px w-16 bg-cyan-500/50" />
 
-            <h2 className="font-['Playfair_Display'] text-3xl font-light leading-relaxed text-white md:text-5xl">
+            <h2 className="font-display text-3xl font-light leading-relaxed text-white md:text-5xl">
               An experimental AI platform focused on transforming robotic
               AI-generated content into natural human communication using
               contextual rewriting and local language models.

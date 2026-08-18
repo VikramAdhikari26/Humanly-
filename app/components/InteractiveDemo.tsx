@@ -30,7 +30,7 @@ export function InteractiveDemo() {
       
       <div className="max-w-6xl mx-auto px-6 relative z-10" style={{ transformStyle: 'preserve-3d' }}>
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-['Playfair_Display'] text-white mb-6">
+          <h2 className="text-4xl md:text-5xl font-display text-white mb-6">
             Interactive Processing Console
           </h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto font-light">

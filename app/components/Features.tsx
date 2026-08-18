@@ -58,7 +58,7 @@ export function Features() {
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto mb-20 max-w-3xl text-center">
-          <h2 className="mb-6 font-['Playfair_Display'] text-4xl text-white md:text-5xl">
+          <h2 className="mb-6 font-display text-4xl text-white md:text-5xl">
             Engineered for{" "}
             <span className="italic text-cyan-400">
               authenticity
