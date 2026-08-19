@@ -59,7 +59,7 @@ const LAYERS = [
 
 export default function ArchitecturePage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#020617] text-white px-6 py-20">
+    <main className="relative min-h-screen bg-[#020617] text-white px-6 py-20">
 
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(37,99,235,0.10),transparent_70%)]" />
 
@@ -102,13 +102,13 @@ export default function ArchitecturePage() {
             and future Ollama backend connectivity.
           </p>
 
-          <ol className="flex flex-col items-stretch justify-center gap-4 md:flex-row md:items-start">
+          <ol className="flex flex-col items-stretch justify-center gap-4 lg:flex-row lg:flex-wrap lg:items-start">
             {FLOW.map((node, idx) => (
               <li
                 key={node.title}
-                className="flex flex-col items-center gap-4 md:flex-row md:items-start"
+                className="flex flex-col items-center gap-4 lg:flex-row lg:items-start"
               >
-                <div className="md:w-36">
+                <div className="lg:w-36">
                   <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 text-sm font-semibold backdrop-blur-sm">
                     {node.title}
                   </div>
@@ -121,7 +121,7 @@ export default function ArchitecturePage() {
                 {idx < FLOW.length - 1 && (
                   <ArrowRight
                     aria-hidden
-                    className="h-4 w-4 shrink-0 rotate-90 text-cyan-400/70 md:mt-5 md:rotate-0"
+                    className="h-4 w-4 shrink-0 rotate-90 text-cyan-400/70 lg:mt-5 lg:rotate-0"
                   />
                 )}
               </li>
