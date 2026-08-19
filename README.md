@@ -28,14 +28,14 @@ Designed for seamless integration with **Ollama** for local, privacy-first AI in
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
+- Node.js 20.9+ (required by Next.js 16)
 - npm or yarn
 
 ### Installation
 
 ```bash
 git clone https://github.com/VikramAdhikari26/Humanly-.git
-cd Humanly-/client
+cd Humanly-
 npm install
 ```
 
@@ -58,23 +58,18 @@ npm run start
 
 ```
 Humanly-/
-├── client/              # Next.js frontend
-│   ├── app/
-│   │   ├── components/  # Reusable UI components
-│   │   ├── workspace/   # Workspace page & sub-components
-│   │   ├── dashboard/   # Dashboard page
-│   │   ├── architecture/# Architecture page with pipeline diagram
-│   │   ├── docs/        # Documentation page
-│   │   ├── research/    # Research page
-│   │   ├── fonts.ts     # Font configuration (Cormorant)
-│   │   ├── globals.css  # Global styles & Tailwind imports
-│   │   └── layout.tsx   # Root layout
-│   ├── lib/
-│   │   └── tones.ts     # Centralized tone list
-│   ├── tailwind.config.js # Tailwind theme with brand colors
-│   ├── package.json
-│   └── next.config.js
-├── server/              # Backend (Node.js)
+├── app/                 # Next.js App Router frontend
+│   ├── components/      # Reusable UI components
+│   ├── dashboard/       # Workspace / console page
+│   ├── architecture/    # Architecture page
+│   ├── docs/            # Documentation page
+│   ├── research/        # Research page
+│   ├── fonts.ts         # Font configuration
+│   ├── globals.css      # Global styles & Tailwind imports
+│   └── layout.tsx       # Root layout
+├── next.config.js
+├── package.json
+├── server/              # Backend (Node.js, planned)
 ├── shared/              # Shared constants & prompts
 └── README.md
 ```
@@ -88,17 +83,17 @@ Humanly-/
 
 ## 🔌 Key Components
 
-### WorkspacePage (`app/workspace/page.tsx`)
-Main interface for text humanization. Manages state for input, output, tone, strength, and preservation options.
+### DashboardPage (`app/dashboard/page.tsx`)
+Workspace console for text humanization: input, tone selection, humanization strength, and output.
 
-### ToneSelector (`app/components/ToneSelector.tsx`)
-Reusable component for selecting tones with keyboard navigation (arrow keys, Enter). Features primary chips + "More" dropdown.
+### Hero (`app/components/Hero.tsx`)
+Landing hero with the product pitch and entry points into the console.
 
-### ArchitectureDiagram (`app/components/ArchitectureDiagram.tsx`)
-Visual pipeline showing transformation steps with descriptions.
+### HowItWorks (`app/components/HowItWorks.tsx`)
+Visual pipeline showing the transformation steps with descriptions.
 
-### OutputPanel & InputPanel
-Workspace sub-components for input/output management with copy, download, and clear actions.
+### InteractiveDemo (`app/components/InteractiveDemo.tsx`)
+Standalone demo console with a mock rewriting flow.
 
 ## 🔮 Future Enhancements
 
@@ -119,7 +114,7 @@ Workspace sub-components for input/output management with copy, download, and cl
 
 ## 📝 Environment Variables
 
-Create a `.env.local` file in the `client/` folder:
+Create a `.env.local` file in the project root:
 
 ```
 NEXT_PUBLIC_API_URL=http://localhost:3001

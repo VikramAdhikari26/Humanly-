@@ -24,7 +24,7 @@ export function AITransformationShowcase() {
               Before &amp; After
             </div>
 
-            <h2 className="font-['Playfair_Display'] text-4xl text-white md:text-5xl">
+            <h2 className="font-display text-4xl text-white md:text-5xl">
               The anatomy of{" "}
               <span className="italic text-cyan-400">human</span> text
             </h2>

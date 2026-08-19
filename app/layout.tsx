@@ -1,4 +1,5 @@
 import "./globals.css";
+import { cormorant, inter, playfair } from "./fonts";
 
 export const metadata = {
   title: "Humanly",
@@ -11,7 +12,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${inter.variable} ${playfair.variable} ${cormorant.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

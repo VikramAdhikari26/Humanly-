@@ -76,7 +76,7 @@ export function Hero() {
               </>
             </Button>
 
-            <Button variant="secondary">
+            <Button href="/#demo" variant="secondary">
               Explore Demo
             </Button>
           </div>
