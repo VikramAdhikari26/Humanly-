@@ -59,9 +59,35 @@ const LAYERS = [
 
 export default function ArchitecturePage() {
   return (
-    <main className="min-h-screen bg-[#020617] text-white px-6 py-20">
+    <main className="relative min-h-screen bg-[#020617] text-white px-6 py-20">
 
-      <div className="max-w-5xl mx-auto">
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.18),transparent_35%),radial-gradient(circle_at_top_right,rgba(6,182,212,0.14),transparent_30%),linear-gradient(to_bottom,#020617,#03122b,#020617)]" />
+
+        <div className="absolute right-20 top-24 h-[420px] w-[420px] rounded-full bg-cyan-500/10 blur-[120px]" />
+
+        <div className="absolute bottom-10 left-0 h-[500px] w-[500px] rounded-full bg-blue-700/10 blur-[120px]" />
+
+        <div className="absolute bottom-0 left-0 w-full opacity-40">
+          <svg viewBox="0 0 1440 320" className="h-auto w-full" preserveAspectRatio="none">
+            <path
+              fill="rgba(59,130,246,0.15)"
+              d="M0,160L80,170.7C160,181,320,203,480,202.7C640,203,800,181,960,186.7C1120,192,1280,224,1360,240L1440,256L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
+            />
+          </svg>
+        </div>
+
+        <div className="absolute bottom-0 left-0 w-full opacity-25">
+          <svg viewBox="0 0 1440 320" className="h-auto w-full" preserveAspectRatio="none">
+            <path
+              fill="rgba(6,182,212,0.18)"
+              d="M0,256L120,240C240,224,480,192,720,208C960,224,1200,288,1320,309.3L1440,320L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <div className="relative z-10 max-w-5xl mx-auto">
 
         <div className="flex items-start justify-between flex-wrap gap-6 mb-14">
 
