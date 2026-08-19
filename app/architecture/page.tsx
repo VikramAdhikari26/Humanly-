@@ -1,4 +1,13 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
+const FLOW = [
+  { title: "Ingress", caption: "Web / API input" },
+  { title: "Preprocess", caption: "Sanitize & preserve entities" },
+  { title: "Model (Ollama)", caption: "Local LLM inference (future)" },
+  { title: "Postprocess", caption: "Tone + formatting adjustments" },
+  { title: "Output", caption: "Deliver rewritten text" },
+];
 
 const STAGES = [
   {
@@ -50,9 +59,11 @@ const LAYERS = [
 
 export default function ArchitecturePage() {
   return (
-    <main className="min-h-screen bg-[#020617] text-white px-6 py-20">
+    <main className="relative min-h-screen overflow-hidden bg-[#020617] text-white px-6 py-20">
 
-      <div className="max-w-5xl mx-auto">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(37,99,235,0.10),transparent_70%)]" />
+
+      <div className="relative max-w-5xl mx-auto">
 
         <div className="flex items-start justify-between flex-wrap gap-6 mb-14">
 
@@ -74,6 +85,49 @@ export default function ArchitecturePage() {
             Back to Home
           </Link>
         </div>
+
+        <section className="mb-16 text-center">
+
+          <h2 className="text-sm font-medium uppercase tracking-[0.25em] text-cyan-400 mb-4">
+            Pipeline Architecture
+          </h2>
+
+          <h3 className="font-display text-4xl md:text-5xl mb-5">
+            Transformation Workflow
+          </h3>
+
+          <p className="mx-auto max-w-2xl text-slate-400 leading-7 mb-12">
+            A concise overview of the transformation steps, model roles and
+            integration points for the Humanly pipeline. Designed for clarity
+            and future Ollama backend connectivity.
+          </p>
+
+          <ol className="flex flex-col items-stretch justify-center gap-4 md:flex-row md:items-start">
+            {FLOW.map((node, idx) => (
+              <li
+                key={node.title}
+                className="flex flex-col items-center gap-4 md:flex-row md:items-start"
+              >
+                <div className="md:w-36">
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 text-sm font-semibold backdrop-blur-sm">
+                    {node.title}
+                  </div>
+
+                  <p className="mt-3 text-xs leading-5 text-slate-500">
+                    {node.caption}
+                  </p>
+                </div>
+
+                {idx < FLOW.length - 1 && (
+                  <ArrowRight
+                    aria-hidden
+                    className="h-4 w-4 shrink-0 rotate-90 text-cyan-400/70 md:mt-5 md:rotate-0"
+                  />
+                )}
+              </li>
+            ))}
+          </ol>
+        </section>
 
         <section className="mb-16">
 
