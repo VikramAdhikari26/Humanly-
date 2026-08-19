@@ -59,11 +59,9 @@ const LAYERS = [
 
 export default function ArchitecturePage() {
   return (
-    <main className="relative min-h-screen bg-[#020617] text-white px-6 py-20">
+    <main className="min-h-screen bg-[#020617] text-white px-6 py-20">
 
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(37,99,235,0.10),transparent_70%)]" />
-
-      <div className="relative max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto">
 
         <div className="flex items-start justify-between flex-wrap gap-6 mb-14">
 
