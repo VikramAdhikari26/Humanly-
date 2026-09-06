@@ -65,9 +65,11 @@ function isTone(value: unknown): value is Tone {
 export async function POST(request: Request) {
   let body: Partial<HumanizeRequest>;
   try {
-    body = await request.json();
+    const parsed: unknown = await request.json();
+    if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) throw new Error();
+    body = parsed as Partial<HumanizeRequest>;
   } catch {
-    return Response.json({ error: "Request body must be JSON." }, { status: 400 });
+    return Response.json({ error: "Request body must be a JSON object." }, { status: 400 });
   }
 
   const text = typeof body.text === "string" ? body.text.trim() : "";
@@ -79,7 +81,8 @@ export async function POST(request: Request) {
   }
 
   const tone: Tone = isTone(body.tone) ? body.tone : "Natural";
-  const strength = Math.min(100, Math.max(1, Math.round(Number(body.strength ?? 70)) || 70));
+  const rawStrength = Number(body.strength);
+  const strength = Number.isFinite(rawStrength) ? Math.min(100, Math.max(1, Math.round(rawStrength))) : 70;
 
   const fromModel = await humanizeWithOllama(text, tone, strength);
   const payload: HumanizeResponse = fromModel
