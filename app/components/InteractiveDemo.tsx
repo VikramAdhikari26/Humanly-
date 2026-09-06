@@ -2,7 +2,7 @@
 
 import { Settings2, Play, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { useState } from 'react';
-import { countWords, humanize, type Tone } from '../lib/humanize';
+import { countWords, humanize, type HumanizeEngine, type HumanizeResponse, type Tone } from '../lib/humanize';
 
 const SAMPLE = "We understand that navigating the complexities of digital transformation can be challenging. It is crucial to leverage synergistic methodologies to ensure optimal outcomes and maximize holistic paradigm shifts across the organization.";
 
@@ -12,16 +12,35 @@ export function InteractiveDemo() {
   const [isRewriting, setIsRewriting] = useState(false);
   const [input, setInput] = useState(SAMPLE);
   const [tone, setTone] = useState<Tone>('Casual');
+  const [strength, setStrength] = useState(75);
   const [output, setOutput] = useState("Your humanized text will appear here...");
+  const [engine, setEngine] = useState<HumanizeEngine | null>(null);
 
-  const handleRewrite = () => {
+  const handleRewrite = async () => {
+    if (!input.trim()) {
+      setOutput("Add some text to rewrite.");
+      return;
+    }
     setIsRewriting(true);
-    const result = humanize(input, tone, 85);
-    setTimeout(() => {
-      setOutput(result || "Add some text to rewrite.");
+    try {
+      const res = await fetch('/api/humanize', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ text: input, tone, strength }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data: HumanizeResponse = await res.json();
+      setOutput(data.output);
+      setEngine(data.engine);
+    } catch {
+      setOutput(humanize(input, tone, strength));
+      setEngine('rules');
+    } finally {
       setIsRewriting(false);
-    }, 1000);
+    }
   };
+
+  const strengthLabel = strength >= 70 ? 'High' : strength >= 40 ? 'Medium' : 'Light';
 
   return (
     <section id="demo" className="py-32 bg-[#020617] relative perspective-[1500px]">
@@ -77,10 +96,22 @@ export function InteractiveDemo() {
                 <div>
                   <div className="flex justify-between text-sm mb-3 text-slate-400">
                     <span>Rewrite Strength</span>
-                    <span>High</span>
+                    <span>{strengthLabel} · {strength}%</span>
                   </div>
-                  <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                    <div className="w-3/4 h-full bg-gradient-to-r from-blue-500 to-cyan-400" />
+                  <div className="relative h-2 bg-white/10 rounded-full">
+                    <div
+                      className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400"
+                      style={{ width: `${strength}%` }}
+                    />
+                    <input
+                      type="range"
+                      min={1}
+                      max={100}
+                      value={strength}
+                      onChange={(e) => setStrength(Number(e.target.value))}
+                      aria-label="Rewrite strength"
+                      className="absolute inset-0 w-full opacity-0 cursor-pointer"
+                    />
                   </div>
                 </div>
               </div>
@@ -108,9 +139,12 @@ export function InteractiveDemo() {
                   <CheckCircle2 className="w-4 h-4" /> Output (Humanized)
                 </span>
                 <div className="flex items-center gap-4">
-                  <button className="text-slate-400 hover:text-white transition-colors">
-                    <Settings2 className="w-5 h-5" />
-                  </button>
+                  {engine && (
+                    <span className="text-xs text-slate-500 bg-white/5 px-3 py-1 rounded-full">
+                      {engine === 'ollama' ? 'Ollama' : 'Rule engine'}
+                    </span>
+                  )}
+                  <Settings2 className="w-5 h-5 text-slate-400" />
                 </div>
               </div>
               
