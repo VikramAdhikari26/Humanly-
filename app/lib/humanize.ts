@@ -2,6 +2,20 @@ export const TONES = ["Natural", "Professional", "Casual", "Creative"] as const;
 
 export type Tone = (typeof TONES)[number];
 
+export type HumanizeEngine = "ollama" | "rules";
+
+export type HumanizeRequest = {
+  text: string;
+  tone?: Tone;
+  strength?: number;
+};
+
+export type HumanizeResponse = {
+  output: string;
+  engine: HumanizeEngine;
+  model?: string;
+};
+
 type Rule = {
   pattern: RegExp;
   replacement: string;
