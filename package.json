@@ -6,7 +6,9 @@
     "node": ">=20.9.0"
   },
   "scripts": {
+    "predev": "node scripts/check-layout.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/check-layout.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
