@@ -1,4 +1,13 @@
-export const TONES = ["Natural", "Professional", "Casual", "Creative"] as const;
+export const TONES = [
+  "Natural",
+  "Professional",
+  "Casual",
+  "Creative",
+  "Academic",
+  "Confident",
+  "Friendly",
+  "Concise",
+] as const;
 
 export type Tone = (typeof TONES)[number];
 
@@ -83,6 +92,41 @@ const CASUAL_OPENERS: Rule[] = [
   { pattern: /\bNevertheless,\s*/g, replacement: "Still, ", threshold: 30 },
 ];
 
+/** Qualifiers that weaken a claim without adding information. */
+const HEDGES: Rule[] = [
+  { pattern: /\b(?:i think|i believe|in my opinion),?\s+(?:that\s+)?/gi, replacement: "", threshold: 20 },
+  { pattern: /\bit seems (?:that|like)\s*/gi, replacement: "", threshold: 20 },
+  { pattern: /\bit (?:could|might) be argued that\s*/gi, replacement: "", threshold: 20 },
+  { pattern: /\b(?:arguably|presumably|conceivably),?\s*/gi, replacement: "", threshold: 30 },
+  { pattern: /\b(?:somewhat|fairly|rather|relatively|quite)\s+/gi, replacement: "", threshold: 40 },
+  { pattern: /\bperhaps\s+/gi, replacement: "", threshold: 40 },
+  { pattern: /\bmay (?:well )?be able to\b/gi, replacement: "can", threshold: 50 },
+  { pattern: /\btends to be\b/gi, replacement: "is", threshold: 50 },
+];
+
+type ToneProfile = {
+  /** Formal registers keep "it is" rather than "it's". */
+  contractions: boolean;
+  casualOpeners: boolean;
+  /** Strips weakening qualifiers for assertive registers. */
+  dehedge: boolean;
+  /** Sentences longer than this are split once past 50% strength. */
+  maxSentenceWords: number;
+  /** Added to the requested strength, so terse registers rewrite harder. */
+  strengthBias: number;
+};
+
+const TONE_PROFILES: Record<Tone, ToneProfile> = {
+  Natural: { contractions: true, casualOpeners: false, dehedge: false, maxSentenceWords: 26, strengthBias: 0 },
+  Professional: { contractions: false, casualOpeners: false, dehedge: false, maxSentenceWords: 26, strengthBias: 0 },
+  Casual: { contractions: true, casualOpeners: true, dehedge: false, maxSentenceWords: 18, strengthBias: 5 },
+  Creative: { contractions: true, casualOpeners: true, dehedge: false, maxSentenceWords: 26, strengthBias: 0 },
+  Academic: { contractions: false, casualOpeners: false, dehedge: false, maxSentenceWords: 34, strengthBias: -10 },
+  Confident: { contractions: true, casualOpeners: false, dehedge: true, maxSentenceWords: 22, strengthBias: 5 },
+  Friendly: { contractions: true, casualOpeners: true, dehedge: false, maxSentenceWords: 20, strengthBias: 0 },
+  Concise: { contractions: true, casualOpeners: false, dehedge: true, maxSentenceWords: 14, strengthBias: 15 },
+};
+
 function applyRules(text: string, rules: Rule[], strength: number): string {
   return rules.reduce(
     (acc, rule) => (strength >= rule.threshold ? acc.replace(rule.pattern, rule.replacement) : acc),
@@ -122,18 +166,25 @@ export function humanize(text: string, tone: Tone, strength: number): string {
   const input = text.trim();
   if (!input) return "";
 
-  let output = applyRules(input, SIMPLIFICATIONS, strength);
+  const profile = TONE_PROFILES[tone];
+  const applied = Math.min(100, Math.max(1, strength + profile.strengthBias));
 
-  if (tone !== "Professional") {
-    output = applyRules(output, CONTRACTIONS, strength);
+  let output = applyRules(input, SIMPLIFICATIONS, applied);
+
+  if (profile.contractions) {
+    output = applyRules(output, CONTRACTIONS, applied);
   }
 
-  if (tone === "Casual" || tone === "Creative") {
-    output = applyRules(output, CASUAL_OPENERS, strength);
+  if (profile.casualOpeners) {
+    output = applyRules(output, CASUAL_OPENERS, applied);
   }
 
-  if (strength >= 50) {
-    output = splitLongSentences(output, tone === "Casual" ? 18 : 26);
+  if (profile.dehedge) {
+    output = applyRules(output, HEDGES, applied);
+  }
+
+  if (applied >= 50) {
+    output = splitLongSentences(output, profile.maxSentenceWords);
   }
 
   return tidy(output);

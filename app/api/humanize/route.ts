@@ -12,6 +12,12 @@ const TONE_GUIDANCE: Record<Tone, string> = {
   Professional: "Keep a polished, business-appropriate register. Avoid contractions and slang, but drop corporate buzzwords.",
   Casual: "Write conversationally, as if explaining to a friend. Use contractions and short sentences.",
   Creative: "Use vivid, expressive language and rhythm while keeping the meaning intact.",
+  Academic:
+    "Keep a formal scholarly register: precise terminology, measured claims, no contractions or colloquialisms.",
+  Confident:
+    "Write assertively. State claims directly and cut hedging such as \"I think\", \"perhaps\", or \"it seems that\".",
+  Friendly: "Write warmly and approachably, addressing the reader directly with plain words and contractions.",
+  Concise: "Cut every word that carries no meaning. Prefer short sentences and keep the result as brief as possible.",
 };
 
 function buildPrompt(text: string, tone: Tone, strength: number): string {

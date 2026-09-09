@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TONES } from "../lib/humanize";
 import {
   ArrowRight,
   Boxes,
@@ -56,8 +57,8 @@ const STAGES = [
     title: "Tone Shaping",
     summary: "Match the register the writer asked for.",
     description:
-      "Natural keeps sentence variety and drops filler. Professional preserves full forms and avoids slang. Casual and Creative favor contractions, shorter openers and a tighter sentence cap so the result reads like speech rather than a report.",
-    tags: ["Natural", "Professional", "Casual", "Creative"],
+      "Every tone is a profile over four switches: contractions, casual openers, hedge removal and a sentence-length cap, plus a bias applied to the requested strength. Natural keeps sentence variety and drops filler; Professional and Academic preserve full forms; Casual, Creative and Friendly favor contractions and shorter openers; Confident strips hedging; Concise rewrites hardest and caps sentences shortest.",
+    tags: [...TONES],
   },
   {
     step: "05",
@@ -232,7 +233,7 @@ export default function ArchitecturePage() {
             <dl className="grid grid-cols-2 gap-4">
               {[
                 { k: "Stages", v: "5" },
-                { k: "Tones", v: "4" },
+                { k: "Tones", v: String(TONES.length) },
                 { k: "Engines", v: "2" },
                 { k: "External deps", v: "0" },
               ].map((s) => (
